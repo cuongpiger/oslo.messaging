@@ -13,6 +13,9 @@
 #    under the License.
 
 
-import pbr.version
+# import pbr.version
 
-version_info = pbr.version.VersionInfo('oslo.messaging')
+# version_info = pbr.version.VersionInfo('oslo.messaging')
+
+# comment this line before go-live
+version_info = "14.3.0"
