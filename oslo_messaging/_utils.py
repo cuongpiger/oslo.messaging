@@ -1,4 +1,3 @@
-
 # Copyright 2013 Red Hat, Inc.
 #
 #    Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -90,3 +89,9 @@ def get_executor_with_context():
         return 'eventlet'
     LOG.debug("Using a threading executor")
     return 'threading'
+
+
+def print_debug(text: str):
+    _green = "\033[92m"  # ANSI escape code for green color
+    _reset = "\033[0m"  # ANSI escape code to reset color
+    print(f"{_green}{text}{_reset}")

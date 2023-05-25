@@ -33,6 +33,9 @@ from oslo_messaging._drivers import base as driver_base
 from oslo_messaging import _utils as utils
 from oslo_messaging import exceptions
 
+# [cuongdm] Must be deleted before go-live
+from oslo_messaging._utils import print_debug
+
 __all__ = [
     'ExecutorLoadFailure',
     'MessageHandlingServer',
@@ -296,16 +299,13 @@ def ordered(after=None, reset_after=None):
     return _ordered
 
 
-class MessageHandlingServer(service.ServiceBase, _OrderedTaskRunner,
-                            metaclass=abc.ABCMeta):
-    """Server for handling messages.
-
-    Connect a transport to a dispatcher that knows how to process the
-    message using an executor that knows how the app wants to create
-    new tasks.
+class MessageHandlingServer(service.ServiceBase, _OrderedTaskRunner, metaclass=abc.ABCMeta):
+    """[cuongdm] Server for handling messages. Connect a transport to a dispatcher that knows how to process the message
+    using an executor that knows how the app wants to create new tasks.
     """
 
     def __init__(self, transport, dispatcher, executor=None):
+        print_debug(f"the type of transport {type(transport)}")
         """Construct a message handling server.
 
         The dispatcher parameter is a DispatcherBase instance which is used
