@@ -26,9 +26,6 @@ from urllib import parse
 
 from oslo_messaging import exceptions
 
-# [cuongdm] Must be removed before go-live
-from oslo_messaging._utils import print_debug
-
 __all__ = [
     'DriverLoadFailure',
     'InvalidTransportURL',
@@ -142,7 +139,6 @@ class Transport(object):
             raise exceptions.InvalidTarget('A server\'s target must have '
                                            'topic and server names specified',
                                            target)
-        print_debug(f"The type of driver is {type(self._driver)}")
         return self._driver.listen(target, batch_size,
                                    batch_timeout)
 

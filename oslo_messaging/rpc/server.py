@@ -131,10 +131,6 @@ from oslo_messaging import transport as msg_transport
 # [cuongdm] For type hinting
 from oslo_messaging.transport import RPCTransport
 
-# [cuongdm] Must be deleted before go-live
-from oslo_messaging._utils import print_debug
-from oslo_messaging.target import Target
-
 __all__ = [
     'get_rpc_server',
     'expected_exceptions',
@@ -147,7 +143,6 @@ LOG = logging.getLogger(__name__)
 class RPCServer(msg_server.MessageHandlingServer):
     def __init__(self, transport, target, dispatcher, executor=None):
         super(RPCServer, self).__init__(transport, dispatcher, executor)
-        print_debug(f"The transport type is {type(transport)}")
         if not isinstance(transport, msg_transport.RPCTransport):
             LOG.warning("Using notification transport for RPC. Please use "
                         "get_rpc_transport to obtain an RPC transport "
@@ -159,7 +154,6 @@ class RPCServer(msg_server.MessageHandlingServer):
 
     def _process_incoming(self, incoming):
         message = incoming[0]
-        print_debug(f"Processing incoming message {message} type {type(incoming)}")
 
         # TODO(sileht): We should remove that at some point and do
         # this directly in the driver
@@ -209,7 +203,7 @@ class RPCServer(msg_server.MessageHandlingServer):
 
 
 def get_rpc_server(transport: RPCTransport,
-                   target: Target, endpoints,
+                   target, endpoints,
                    executor=None, serializer=None, access_policy=None,
                    server_cls=RPCServer):
     """Construct an RPC server.

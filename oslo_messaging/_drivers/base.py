@@ -20,7 +20,6 @@ from oslo_utils import excutils
 from oslo_utils import timeutils
 
 from oslo_messaging import exceptions
-from magnum.common.utils import print_debug
 
 base_opts = [
     cfg.IntOpt('rpc_conn_pool_size', default=30,
@@ -245,7 +244,6 @@ class Listener(object, metaclass=abc.ABCMeta):
 
     def __init__(self, batch_size, batch_timeout,
                  prefetch_size=-1):
-        print_debug(f"batch_size={batch_size}, batch_timeout={batch_timeout}")
         self.on_incoming_callback = None
         self.batch_timeout = batch_timeout
         self.prefetch_size = prefetch_size
